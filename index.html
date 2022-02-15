@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Task-2</title>
+    <style>
+      h1 {
+        text-align: center;
+      }
+      .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      .card_1 {
+        width: 613px;
+        /* height: 100vh; */
+        border: 1px solid #000;
+        border-radius: 5px;
+        /* overflow-y: scroll; */
+        padding: 25px 25px;
+      }
+      .card_1 div {
+        display: inline-block;
+      }
+      .card_2 {
+        width: 400px;
+        height: 1000px;
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 0 20px;
+        background: rgb(150, 221, 218);
+      }
+      .watch_vdo {
+        width: 100%;
+        height: 400px;
+      }
+      .card_1 video {
+        max-width: 100%;
+        height: 350px;
+        cursor: pointer;
+      }
+      .card_2 h3 {
+        text-align: center;
+      }
+
+      .btns {
+        margin-top: 45px;
+      }
+      .btns button {
+        background: yellow;
+        padding: 20px;
+        border-radius: 10px;
+        border: none;
+        color: rgb(5, 78, 141);
+        cursor: pointer;
+      }
+      .btns button:hover{
+        background: rgb(172, 124, 218);
+      }
+      .main video {
+        width: 100%;
+        height: 800px;
+        /* border: 1px solid red; */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Task-2</h1>
+    <div class="container">
+      <div class="card_1"></div>
+      <div class="card_2">
+        <h3>watch video</h3>
+        <div class="main">
+          <video class="video"  ></video>
+        </div>
+
+        <div class="btns">
+          <button id="backward">
+            <i class="fa fa-step-backward" aria-hidden="true"></i>
+          </button>
+          <button id="play">
+            <i class="fa fa-play" aria-hidden="true"></i>
+          </button>
+          <button id="pause">
+            <i class="fa fa-pause" aria-hidden="true"></i>
+          </button>
+          <button id="next">
+            <i class="fa fa-step-forward" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var card_1 = document.querySelector(".card_1");
+
+      var video = document.querySelector("video");
+
+      var demoVideo = [
+        { id: 1, dataId: "./assets/1.mp4" },
+        { id: 2, dataId: "./assets/2.mp4" },
+        { id: 3, dataId: "./assets/3.mp4" },
+        { id: 4, dataId: "./assets/4.mp4" },
+        { id: 5, dataId: "./assets/5.mp4" },
+        { id: 6, dataId: "./assets/6.mp4" },
+        { id: 7, dataId: "./assets/7.mp4" },
+        { id: 8, dataId: "./assets/8.mp4" },
+        { id: 9, dataId: "./assets/9.mp4" }
+      ];
+     
+    
+ 
+      var mapped = demoVideo.map((e) => { 
+        var d =
+          `<div onclick="onClick('` +
+          e.dataId +
+          `','` +
+          e.id +
+          `')">
+          <video
+                      class="vdo"
+                      src="${e.dataId}"
+                      id="${e.id}"
+                      data-id="${e.dataId}"
+                      type="video/mp4"
+                    ></video>
+          </div>
+                    `;
+        return d;
+      });
+
+      card_1.innerHTML = mapped;
+
+      function onClick(element, id) {
+        console.log("on btn click");
+        console.log(element, id);
+        console.log(video);
+
+        video.setAttribute("src", element);
+        video.setAttribute("type", "video/mp4");
+
+        video.play();
+        // var getId=id
+
+
+      var backward = document.getElementById("backward");
+      var play = document.getElementById("play");
+      var pause = document.getElementById("pause");
+      var next = document.getElementById("next");
+
+      backward.addEventListener("click", videoAction);
+      play.addEventListener("click", videoAction);
+      pause.addEventListener("click", videoAction);
+      next.addEventListener("click", videoAction);
+
+      function videoAction(e) {
+        switch (e.target.id) {
+          case "play":
+            playVideo(id);
+            break;
+          case "pause":
+            pausevideo(id);
+            break;
+          case "next":
+            id++
+            nextVideo(id);  
+            break;
+            case "backward":
+            id--
+            backVideo(id);  
+            break;
+
+          default:"no button clicked"
+        }
+
+        function playVideo(id) {
+        video.play();
+      }
+
+      function pausevideo(id) {
+        video.pause(id);
+      }
+
+      function nextVideo( id) { 
+        video.src = `./assets/${id}.mp4`;
+        playVideo(id); 
+      }
+
+      function backVideo( id) {
+        video.src = `./assets/${id}.mp4`;
+        playVideo(id);
+        
+      }
+
+      }
+      
+       
+      }
+
+     
+    </script>
+  </body>
+</html>
+
+
